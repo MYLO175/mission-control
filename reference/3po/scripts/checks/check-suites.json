@@ -1,0 +1,1098 @@
+{
+  "schemaVersion": 1,
+  "tiers": {
+    "source-free": {
+      "automatic": true,
+      "description": "All audited component checks; fictional values, in-memory or private temporary storage, offline helper fixtures. No app launch, personal source reads, native writes, model requests or downloads."
+    },
+    "app-memory": {
+      "automatic": false,
+      "description": "Integration-owner checks in a signed DEBUG candidate before normal source startup; disposable app storage. Requires --candidate-binary with a signed DEBUG protocol handshake; runs only the listed exact modes and verifies a fresh complete report with zero model requests."
+    },
+    "native": {
+      "automatic": false,
+      "description": "Integration-owner disposable UUID Calendar/Reminder fixtures under existing permissions; creates, edits, completes, undoes and removes test records. Explicitly separate from source-free checks. Requires --candidate-binary with a signed DEBUG protocol handshake; runs only the listed exact modes."
+    },
+    "model": {
+      "automatic": false,
+      "description": "Integration-owner configured subscription model checks on fictional inputs; consumes requests and needs the current account. Narrow quality checks, separate from deterministic coverage. Requires --candidate-binary with a signed DEBUG protocol handshake; runs only the listed exact modes."
+    },
+    "performance": {
+      "automatic": true,
+      "description": "Optional source-free measurements on fictional storage/memory/history sizes. Successful completion reports timings only; it does not assert an agreed performance target or UI speedup. MISSIONCONTROL_PERFORMANCE_MODE=debug (default) or release labels the compile mode."
+    }
+  },
+  "suites": [
+    {
+      "id": "actions",
+      "tier": "source-free",
+      "script": "scripts/checks/test-actions.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "advice-dependencies",
+      "tier": "source-free",
+      "script": "scripts/checks/test-advice-dependencies.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "ai-usage",
+      "tier": "source-free",
+      "script": "scripts/checks/test-ai-usage.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "auth",
+      "tier": "source-free",
+      "script": "scripts/checks/test-auth.sh",
+      "effects": [
+        "fictional values",
+        "ephemeral RSA key"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "background-learning",
+      "tier": "source-free",
+      "script": "scripts/checks/test-background-learning.sh",
+      "effects": [
+        "fictional values",
+        "controlled clock, eligibility and claim callbacks"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "briefing",
+      "tier": "source-free",
+      "script": "scripts/checks/test-briefing.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "calendar-timeline",
+      "tier": "source-free",
+      "script": "scripts/checks/test-calendar-timeline.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "chat-drafts",
+      "tier": "source-free",
+      "script": "scripts/checks/test-chat-drafts.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "chat-images",
+      "tier": "source-free",
+      "script": "scripts/checks/test-chat-images.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData",
+        "private temporary image/store files"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "commitment-reports",
+      "tier": "source-free",
+      "script": "scripts/checks/test-commitment-reports.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "conversations",
+      "tier": "source-free",
+      "script": "scripts/checks/test-conversations.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "email-resolution",
+      "tier": "source-free",
+      "script": "scripts/checks/test-email-resolution.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "focused",
+      "tier": "source-free",
+      "script": "scripts/test.sh",
+      "effects": [
+        "fictional values",
+        "offline JXA fixture process"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "heartbeat",
+      "tier": "source-free",
+      "script": "scripts/checks/test-heartbeat.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "inference-deadline",
+      "tier": "source-free",
+      "script": "scripts/checks/test-inference-deadline.sh",
+      "effects": [
+        "fictional values",
+        "mock URLProtocol"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "life-map-layout",
+      "tier": "source-free",
+      "script": "scripts/checks/test-life-map-layout.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "life-notebook",
+      "tier": "source-free",
+      "script": "scripts/checks/test-life-notebook.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "life-notes",
+      "tier": "source-free",
+      "script": "scripts/checks/test-life-notes.sh",
+      "effects": [
+        "fictional values",
+        "in-memory AppKit text editing"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "life-ownership",
+      "tier": "source-free",
+      "script": "scripts/checks/test-life-ownership.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "life-relationship-tools",
+      "tier": "source-free",
+      "script": "scripts/checks/test-life-relationship-tools.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "life-placement",
+      "tier": "source-free",
+      "script": "scripts/checks/test-life-placement.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "life-workspace",
+      "tier": "source-free",
+      "script": "scripts/checks/test-life-workspace.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "local-records",
+      "tier": "source-free",
+      "script": "scripts/checks/test-local-records.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "mail-cancellation",
+      "tier": "source-free",
+      "script": "scripts/checks/test-mail-cancellation.sh",
+      "effects": [
+        "fictional values",
+        "offline JXA fixture process"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "mail-lookup",
+      "tier": "source-free",
+      "script": "scripts/checks/test-mail-lookup.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "mail-monitoring",
+      "tier": "source-free",
+      "script": "scripts/checks/test-mail-monitoring.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "mail-reader",
+      "tier": "source-free",
+      "script": "scripts/checks/test-mail-reader.sh",
+      "effects": [
+        "fictional values",
+        "offline Node fixtures"
+      ],
+      "requires": [
+        "prepared bundled Node runtime"
+      ]
+    },
+    {
+      "id": "memory-graph",
+      "tier": "source-free",
+      "script": "scripts/checks/test-memory-graph.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "memory-inspection",
+      "tier": "source-free",
+      "script": "scripts/checks/test-memory-inspection.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "memory-learning",
+      "tier": "source-free",
+      "script": "scripts/checks/test-memory-learning.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "memory-maintenance",
+      "tier": "source-free",
+      "script": "scripts/checks/test-memory-maintenance.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "memory-organisation-runtime",
+      "tier": "source-free",
+      "script": "scripts/checks/test-memory-organisation-runtime.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData",
+        "isolated preferences",
+        "held inference callbacks"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "memory-quality",
+      "tier": "source-free",
+      "script": "scripts/checks/test-memory-quality.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "memory-store",
+      "tier": "source-free",
+      "script": "scripts/checks/test-memory-store.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "native-creation",
+      "tier": "source-free",
+      "script": "scripts/checks/test-native-creation.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "native-editing",
+      "tier": "source-free",
+      "script": "scripts/checks/test-native-editing.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "native-source-learning",
+      "tier": "source-free",
+      "script": "scripts/checks/test-native-source-learning.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "native-source-read",
+      "tier": "source-free",
+      "script": "scripts/checks/test-native-source-read.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "pa-memory",
+      "tier": "source-free",
+      "script": "scripts/checks/test-pa-memory.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "pa-orientation",
+      "tier": "source-free",
+      "script": "scripts/checks/test-pa-orientation.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "pa-profile-setup",
+      "tier": "source-free",
+      "script": "scripts/checks/test-pa-profile-setup.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "pa-queue",
+      "tier": "source-free",
+      "script": "scripts/checks/test-pa-queue.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "pa-tools",
+      "tier": "source-free",
+      "script": "scripts/checks/test-pa-tools.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "proactive",
+      "tier": "source-free",
+      "script": "scripts/checks/test-proactive.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "review-inbox",
+      "tier": "source-free",
+      "script": "scripts/checks/test-review-inbox.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "second-brain",
+      "tier": "source-free",
+      "script": "scripts/checks/test-second-brain.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "source-context",
+      "tier": "source-free",
+      "script": "scripts/checks/test-source-context.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "source-timeline",
+      "tier": "source-free",
+      "script": "scripts/checks/test-source-timeline.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "stream",
+      "tier": "source-free",
+      "script": "scripts/checks/test-stream.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "summaries",
+      "tier": "source-free",
+      "script": "scripts/checks/test-summaries.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "weather",
+      "tier": "source-free",
+      "script": "scripts/checks/test-weather.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "whatsapp",
+      "tier": "source-free",
+      "script": "scripts/checks/test-whatsapp.sh",
+      "effects": [
+        "fictional values",
+        "offline Node fixtures",
+        "read-only dependency checksum verification"
+      ],
+      "requires": [
+        "Xcode",
+        "prepared bundled Node runtime",
+        "prepared checksum-patched WhatsApp dependencies"
+      ]
+    },
+    {
+      "id": "workspace",
+      "tier": "source-free",
+      "script": "scripts/checks/test-workspace.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "app-advice-context",
+      "tier": "app-memory",
+      "arguments": [
+        "--validate-advice-context"
+      ],
+      "report": "missioncontrol-advice-context-evaluation.json",
+      "effects": [
+        "signed DEBUG app launch",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "integration-owner startup/output audit",
+        "signed DEBUG candidate"
+      ]
+    },
+    {
+      "id": "app-heartbeat-scheduler",
+      "tier": "app-memory",
+      "arguments": [
+        "--validate-review-inbox",
+        "--scheduler-only"
+      ],
+      "report": "missioncontrol-review-scheduler-evaluation.json",
+      "effects": [
+        "signed DEBUG app launch",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "integration-owner startup/output audit",
+        "signed DEBUG candidate"
+      ]
+    },
+    {
+      "id": "app-removal-contract",
+      "tier": "app-memory",
+      "arguments": [
+        "--validate-review-inbox",
+        "--calendar-removal-only"
+      ],
+      "report": "missioncontrol-calendar-removal-evaluation.json",
+      "effects": [
+        "signed DEBUG app launch",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "integration-owner startup/output audit",
+        "signed DEBUG candidate"
+      ]
+    },
+    {
+      "id": "native-reminder-completion",
+      "tier": "native",
+      "arguments": [
+        "--validate-review-inbox",
+        "--reminder-completion-native"
+      ],
+      "report": "missioncontrol-reminder-completion-evaluation.json",
+      "effects": [
+        "signed DEBUG app launch",
+        "disposable SwiftData",
+        "disposable native Reminder completion, Undo and cleanup"
+      ],
+      "requires": [
+        "integration-owner startup/output audit",
+        "signed DEBUG candidate"
+      ]
+    },
+    {
+      "id": "native-removal",
+      "tier": "native",
+      "arguments": [
+        "--validate-review-inbox",
+        "--calendar-removal-only",
+        "--removal-native"
+      ],
+      "report": "missioncontrol-calendar-removal-evaluation.json",
+      "effects": [
+        "signed DEBUG app launch",
+        "disposable SwiftData",
+        "disposable native Calendar writes and cleanup"
+      ],
+      "requires": [
+        "integration-owner startup/output audit",
+        "signed DEBUG candidate"
+      ]
+    },
+    {
+      "id": "model-commitment-reports",
+      "tier": "model",
+      "arguments": [
+        "--validate-commitment-reports"
+      ],
+      "report": "missioncontrol-commitment-reports-evaluation.json",
+      "effects": [
+        "signed DEBUG app launch",
+        "disposable SwiftData",
+        "configured subscription inference"
+      ],
+      "requires": [
+        "integration-owner startup/output audit",
+        "signed DEBUG candidate"
+      ]
+    },
+    {
+      "id": "model-email-resolution",
+      "tier": "model",
+      "arguments": [
+        "--validate-review-inbox",
+        "--email-resolution-only"
+      ],
+      "report": "missioncontrol-email-resolution-evaluation.json",
+      "effects": [
+        "signed DEBUG app launch",
+        "disposable SwiftData",
+        "configured subscription inference"
+      ],
+      "requires": [
+        "integration-owner startup/output audit",
+        "signed DEBUG candidate"
+      ]
+    },
+    {
+      "id": "model-memory",
+      "tier": "model",
+      "arguments": [
+        "--validate-native-memory"
+      ],
+      "report": "missioncontrol-native-memory-evaluation.json",
+      "effects": [
+        "signed DEBUG app launch",
+        "disposable SwiftData",
+        "configured subscription inference"
+      ],
+      "requires": [
+        "integration-owner startup/output audit",
+        "signed DEBUG candidate"
+      ]
+    },
+    {
+      "id": "model-relevance",
+      "tier": "model",
+      "arguments": [
+        "--validate-review-inbox",
+        "--relevance-only"
+      ],
+      "report": "missioncontrol-relevance-evaluation.json",
+      "effects": [
+        "signed DEBUG app launch",
+        "disposable SwiftData",
+        "configured subscription inference"
+      ],
+      "requires": [
+        "integration-owner startup/output audit",
+        "signed DEBUG candidate"
+      ]
+    },
+    {
+      "id": "model-removal",
+      "tier": "model",
+      "arguments": [
+        "--validate-review-inbox",
+        "--calendar-removal-only",
+        "--removal-model"
+      ],
+      "report": "missioncontrol-calendar-removal-evaluation.json",
+      "effects": [
+        "signed DEBUG app launch",
+        "disposable SwiftData",
+        "configured subscription inference"
+      ],
+      "requires": [
+        "integration-owner startup/output audit",
+        "signed DEBUG candidate"
+      ]
+    },
+    {
+      "id": "performance-measurements",
+      "tier": "performance",
+      "script": "scripts/checks/test-performance.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData",
+        "local timing measurements"
+      ],
+      "requires": [
+        "Xcode",
+        "integrated PerformanceChecks fixture"
+      ]
+    },
+    {
+      "id": "conversation-engine",
+      "tier": "source-free",
+      "script": "scripts/checks/test-conversation-engine.sh",
+      "effects": [
+        "fictional inference and tool callbacks",
+        "no app or native sources"
+      ]
+    },
+    {
+      "id": "action-receipts",
+      "tier": "source-free",
+      "script": "scripts/checks/test-action-receipts.sh",
+      "effects": [
+        "fictional disposable storage",
+        "no native sources or inference"
+      ]
+    },
+    {
+      "id": "memory-preparation",
+      "tier": "source-free",
+      "script": "scripts/checks/test-memory-preparation.sh",
+      "effects": [
+        "fictional disposable storage",
+        "no native sources or inference"
+      ]
+    },
+    {
+      "id": "conversation-repository",
+      "tier": "source-free",
+      "script": "scripts/checks/test-conversation-repository.sh",
+      "effects": [
+        "fictional migration and disposable storage",
+        "no app or native sources"
+      ]
+    },
+    {
+      "id": "learning-budget",
+      "tier": "source-free",
+      "script": "scripts/checks/test-learning-budget.sh",
+      "effects": [
+        "fictional persisted claims and injected failures",
+        "no sources or inference"
+      ]
+    },
+    {
+      "id": "learning-runtime",
+      "tier": "source-free",
+      "script": "scripts/checks/test-learning-runtime.sh",
+      "effects": [
+        "actual learning services with fictional ports and injected clock",
+        "private settings and disposable storage; no dashboard or credentials"
+      ]
+    },
+    {
+      "id": "evaluation-launch",
+      "tier": "source-free",
+      "script": "scripts/checks/test-evaluation-launch.sh",
+      "effects": [
+        "pure startup decisions; no application launch"
+      ]
+    },
+    {
+      "id": "review-conversation-trial",
+      "tier": "source-free",
+      "script": "scripts/checks/test-review-conversation-trial.sh",
+      "effects": [
+        "scripted in-memory Review actions, serial job outcomes and DEBUG launch guard",
+        "no app launch, source access, inference, personal storage or native writes"
+      ]
+    },
+    {
+      "id": "runtime-performance",
+      "tier": "performance",
+      "script": "scripts/checks/test-runtime-performance.sh",
+      "effects": [
+        "fictional cached memory and actual changed-chunk saves",
+        "private storage; no UI/source/model latency claims"
+      ]
+    },
+    {
+      "id": "assistant-service",
+      "tier": "source-free",
+      "script": "scripts/checks/test-assistant-service.sh",
+      "effects": [
+        "actual conversation service with fictional provider/tool/runtime ports",
+        "private settings/storage/images; no dashboard/credentials/native sources"
+      ]
+    },
+    {
+      "id": "heartbeat-service",
+      "tier": "source-free",
+      "script": "scripts/checks/test-heartbeat-service.sh",
+      "effects": [
+        "actual heartbeat orchestrator with fictional stages, clock and device",
+        "private settings/disposable storage; no dashboard or native/model calls"
+      ]
+    },
+    {
+      "id": "native-reconciliation",
+      "tier": "source-free",
+      "script": "scripts/checks/test-native-reconciliation.sh",
+      "effects": [
+        "fictional values"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "model-review-retirement",
+      "tier": "model",
+      "arguments": [
+        "--validate-review-inbox",
+        "--email-work-only",
+        "--retirement-contract"
+      ],
+      "report": "missioncontrol-email-work-evaluation.json",
+      "effects": [
+        "signed DEBUG app launch",
+        "disposable SwiftData",
+        "one configured subscription request with fictional inputs"
+      ],
+      "requires": [
+        "integration-owner startup/output audit",
+        "signed DEBUG candidate"
+      ]
+    },
+    {
+      "id": "review-work",
+      "tier": "source-free",
+      "script": "scripts/checks/test-review-work.sh",
+      "effects": [
+        "Actual durable queue, injected failures, held work and cancellation races; no sources or inference"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "review-plan-dates",
+      "tier": "source-free",
+      "script": "scripts/checks/test-review-plan-dates.sh",
+      "effects": [
+        "Fictional source/human date grounding; no sources, native writes or inference"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "ai-activity",
+      "tier": "source-free",
+      "script": "scripts/checks/test-ai-activity.sh",
+      "effects": [
+        "Fictional durable activity, migration, acknowledgement and failure state checks"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "working-context",
+      "tier": "source-free",
+      "script": "scripts/checks/test-working-context.sh",
+      "effects": [
+        "fictional shared context, permission and follow-up fixtures; no app, model or source reads"
+      ]
+    },
+    {
+      "id": "review-preference-conversion",
+      "tier": "source-free",
+      "script": "scripts/checks/test-review-preference-conversion.sh",
+      "effects": [
+        "fictional legacy conversion, rollback, stale owners and opaque fields in disposable storage"
+      ]
+    },
+    {
+      "id": "working-context-model",
+      "tier": "model",
+      "arguments": [
+        "--validate-review-inbox",
+        "--working-context-model"
+      ],
+      "report": "missioncontrol-working-context-model-evaluation.json",
+      "effects": [
+        "Configured subscription model on five fictional conversation scenarios including directory/page retrieval plus supported page synthesis; maximum20 requests/24 read-only fixture calls; no personal source content or native writes"
+      ]
+    },
+    {
+      "id": "context-pages-model",
+      "tier": "model",
+      "arguments": [
+        "--validate-review-inbox",
+        "--working-context-model",
+        "--context-pages-only"
+      ],
+      "report": "missioncontrol-working-context-model-evaluation.json",
+      "effects": [
+        "Configured subscription model on one fictional four-page synthesis using issued evidence selectors; maximum1 request/no tool execution; no personal source content or native writes"
+      ]
+    },
+    {
+      "id": "guide-cache-model",
+      "tier": "model",
+      "arguments": ["--validate-memory-inspection", "--prompt-cache-only", "--warm-boundary-only"],
+      "report": "missioncontrol-guide-cache-evaluation.json",
+      "effects": ["Two declared fictional configured-model requests retaining prior human/completed output history across a changed current snapshot and stable initial developer message boundary; no retries, tool execution, personal sources, native writes or setting changes"]
+    },
+    {
+      "id": "review-inference-guards",
+      "tier": "source-free",
+      "script": "scripts/checks/test-review-inference-guards.sh",
+      "effects": [
+        "fictional captured Review input receipts; no app, model or source reads"
+      ]
+    },
+    {
+      "id": "context-pages",
+      "tier": "source-free",
+      "script": "scripts/checks/test-context-pages.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "context-project-questions",
+      "tier": "source-free",
+      "script": "scripts/checks/test-context-project-questions.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "context-consolidation",
+      "tier": "source-free",
+      "script": "scripts/checks/test-context-consolidation.sh",
+      "effects": [
+        "fictional values",
+        "disposable SwiftData"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    },
+    {
+      "id": "context-source-deltas",
+      "tier": "source-free",
+      "script": "scripts/checks/test-context-source-deltas.sh",
+      "effects": [
+        "fictional source delta/version receipts; no app, model or source reads"
+      ],
+      "requires": [
+        "Xcode"
+      ]
+    }
+  ]
+}

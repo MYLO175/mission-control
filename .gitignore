@@ -1,0 +1,13 @@
+.DS_Store
+.build/
+__pycache__/
+*.pyc
+output/
+.playwright-cli/
+*.xcuserstate
+xcuserdata/
+personal/
+*.local.json
+.env
+.env.*
+!.env.example

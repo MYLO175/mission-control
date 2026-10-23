@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+<key>CFBundleName</key><string>3PO</string>
+<key>CFBundleDisplayName</key><string>3PO</string>
+<key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+<key>CFBundleIconFile</key><string>AppIcon</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+<key>CFBundleShortVersionString</key><string>0.1</string>
+<key>CFBundleVersion</key><string>1</string>
+<key>3POEvaluationProtocol</key><integer>1</integer>
+<key>LSMinimumSystemVersion</key><string>26.0</string>
+<key>NSCalendarsUsageDescription</key><string>3PO reads your agenda and manages events you explicitly ask it to create or edit.</string>
+<key>NSCalendarsFullAccessUsageDescription</key><string>3PO reads your agenda and manages events you explicitly ask it to create or edit.</string>
+<key>NSRemindersFullAccessUsageDescription</key><string>3PO shows your reminders, completes them with Undo, and manages reminders you explicitly request.</string>
+<key>NSAppleEventsUsageDescription</key><string>3PO reads inbox messages from Apple Mail for your local dashboard. It never sends email.</string>
+<key>NSMicrophoneUsageDescription</key><string>3PO uses your microphone only when you start dictation, to prepare an editable message.</string>
+<key>NSSpeechRecognitionUsageDescription</key><string>3PO transcribes your dictated message on device so you can review it before sending.</string>
+<key>NSLocationUsageDescription</key><string>3PO uses your location for a local forecast. It sends only a rounded nearby area to Open-Meteo; your PA receives weather, never coordinates.</string>
+<key>NSLocationWhenInUseUsageDescription</key><string>3PO uses your location for a local forecast. It sends only a rounded nearby area to Open-Meteo; your PA receives weather, never coordinates.</string>
+<key>NSHighResolutionCapable</key><true/>
+</dict></plist>

@@ -1,0 +1,2 @@
+# Preserve the imported source verbatim; integrity is checked by its SHA-256 manifest.
+reference/3po/** -whitespace

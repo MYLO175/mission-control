@@ -1,0 +1,65 @@
+import Foundation
+@main struct Checks {
+    static func main() throws {
+        assert(MailLookupRules.requested("Find Alice's email from September"))
+        assert(MailLookupRules.requested("What did the old email about the course say?"))
+        assert(MailLookupRules.requested("Continue the email search."))
+        let answerRequest = MailLookupRules.answerRequest(original:"What did Alice's September course email say?")
+        assert(answerRequest.contains("What did Alice's September course email say?"))
+        assert(answerRequest.contains("app has already performed"))
+        assert(!MailLookupRules.requested("What is going on today?"))
+        assert(MailLookupRules.roles("Find Alice's emails") == [.inbox,.sent,.archive])
+        assert(MailLookupRules.roles("Search sent emails for Alice") == [.sent])
+        assert(MailLookupRules.roles("Find emails Alice sent me last week") == [.inbox,.sent,.archive])
+        assert(MailLookupRules.roles("Find what I sent Alice last week") == [.sent])
+        assert(MailLookupRules.requested("Find what I sent Alice last week"))
+        assert(MailLookupRules.roles("Find archived emails from Alice") == [.archive])
+        assert(MailLookupRules.roles("Search inbox and sent mail for Alice") == [.inbox,.sent])
+        let plan = MailLookupPlan(message:"",terms:["Alice","Course"],start:"2026-09-01",end:"2026-10-01")
+        let terms = try MailLookupRules.terms(plan,request:"Find Alice's Course email from September")
+        assert(terms == ["Alice","Course"])
+        let expanded = try MailLookupRules.terms(MailLookupPlan(message:"",terms:["COMET","module selection"],start:nil,end:nil),request:"when do I submit engineering modules on commet?")
+        assert(expanded == ["COMET","module selection"], "Read-only typo corrections and topic synonyms must not demand exact subjects")
+        assert(MailLookupRules.retryRequested("try again") && MailLookupRules.retryRequested("check again please"))
+        assert(!MailLookupRules.retryRequested("what happened?"))
+        let raw = #"{"id":"test:1","accountID":"test","account":"Test","messageID":1,"internetMessageID":"fake@example.invalid","sender":"ALICE@example.invalid","subject":"Private invitation","received":"2026-09-15T12:00:00Z","unread":true,"replied":false,"flagged":false}"#
+        let message = try JSONDecoder().decode(MailMessage.self,from:Data(raw.utf8))
+        assert(message.mailboxName == nil)
+        let archived = try JSONDecoder().decode(MailMessage.self,from:Data(raw.replacingOccurrences(of:"\"flagged\":false",with:"\"flagged\":false,\"mailboxName\":\"Archive\"").utf8))
+        assert(archived.mailboxName == "Archive")
+        let restored = try JSONDecoder().decode(MailMessage.self,from:JSONEncoder().encode(archived))
+        assert(restored.id == message.id && restored.mailboxName == "Archive")
+        let sent = try JSONDecoder().decode(MailMessage.self,from:Data(raw.replacingOccurrences(of:"ALICE@example.invalid",with:"Me@example.invalid").replacingOccurrences(of:"\"flagged\":false",with:"\"flagged\":false,\"mailboxRole\":\"sent\",\"recipients\":[\"Alice <alice@example.invalid>\"]").utf8))
+        assert(MailLookupRules.matches(sent,terms:["Alice"]))
+        assert(!MailLookupRules.matches(sent,terms:["Bob"]))
+        assert(MailLookupRules.matches(message,terms:terms))
+        assert(!MailLookupRules.matches(message,terms:["Unrelated"]))
+        for bad in [MailLookupPlan(message:"",terms:["email"],start:nil,end:nil),MailLookupPlan(message:"",terms:[],start:nil,end:nil)] {
+            var failed = false
+            do { _ = try MailLookupRules.terms(bad,request:"Find Alice's email") } catch { failed = true }
+            assert(failed)
+        }
+        let start = Date(timeIntervalSince1970:1_790_000_000)
+        var blocked = MailWindowProgress(id:"failed-one",accountID:"A",start:start,end:start.addingTimeInterval(86400),mailboxName:"Inbox",mailboxRole:.inbox)
+        let anotherDay = MailWindowProgress(id:"failed-two",accountID:"A",start:start.addingTimeInterval(-86400),end:start,mailboxName:"Inbox",mailboxRole:.inbox)
+        let healthy = MailWindowProgress(id:"healthy",accountID:"B",start:start,end:start.addingTimeInterval(86400),mailboxName:"Inbox",mailboxRole:.inbox)
+        let sentWindow = MailWindowProgress(id:"sent",accountID:"A",start:start,end:start.addingTimeInterval(86400),mailboxName:"Sent",mailboxRole:.sent)
+        let failedKey = MailLookupCoverage.folderKey(blocked), failed: Set<String> = [failedKey]
+        assert(MailLookupCoverage.folderKey(anotherDay) == failedKey)
+        assert(MailLookupCoverage.folderKey(sentWindow) != failedKey)
+        assert(MailLookupCoverage.next([blocked,anotherDay,healthy],failedFolders:failed) == 2)
+        assert(MailLookupCoverage.next([blocked,anotherDay],failedFolders:failed) == nil)
+        assert(MailLookupCoverage.next([blocked,anotherDay],failedFolders:[]) == 0, "Explicit retry restores original cursor, not completed coverage")
+        blocked.messageIDs = [1,2]; blocked.offset = 1
+        assert(MailLookupCoverage.next([blocked],failedFolders:[]) == 0 && blocked.offset == 1 && blocked.messageIDs == [1,2])
+        assert(!MailLookupCoverage.hasMore([blocked],failedFolders:failed,results:[],delivered:[]))
+        assert(MailLookupCoverage.hasMore([blocked],failedFolders:failed,results:[message],delivered:[]), "A failed AI answer must retain matched evidence for another answer")
+        assert(!MailLookupCoverage.hasMore([blocked],failedFolders:failed,results:[message],delivered:[message.id]))
+        let partial = MailLookupCoverage.status([blocked,anotherDay],failedFolders:failed,matched:1,failedBodies:1,hasMore:false)
+        assert(partial.contains("0/2") && partial.contains("remains partial") && partial.contains("only headers") && !partial.contains("search complete"))
+        assert(MailLookupRules.retriesUnavailable("Retry unavailable mail reads."))
+        assert(MailLookupRules.continues("Continue the email search.") && MailLookupRules.requested("Retry unavailable mail reads."))
+        assert(!MailLookupRules.retriesUnavailable("Retry unavailable mail reads and delete them"))
+        print("PASS: mail-specific request routing, meaningful bounded topic expansion, case-insensitive sender/subject matches, generic terms rejected, failed-folder isolation, cursor preservation, incomplete-body coverage and retry intent")
+    }
+}

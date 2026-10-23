@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "foundationVersion": "0.1.0",
+  "sourceRepository": "https://github.com/MYLO175/3PO",
+  "sourceCommit": "050bd308a022d70575ae16d04d62bcecee8d7477",
+  "originalFiles": {
+    "MissionControl/Assistant/Provider/ChatGPTCallback.swift": "76c7554849de74507d482ea13ccdad951ea25c6753d9492e3fbf9a4f3b21a707",
+    "MissionControl/Assistant/Provider/ChatGPTConnection.swift": "6ba966609007eb2d3b1ccb4fb6e441fc678d0fb9b2a7c78fac70d1f2df6a620d",
+    "MissionControl/Assistant/Provider/ChatGPTOAuth.swift": "dbe8fcdf79b6ab5cff5572fa14a94e902ee7e610fb5a13f765b275ce7b05f77f",
+    "MissionControl/Assistant/Provider/ChatGPTRecovery.swift": "e8d47a3eb49d24153dc6bf22d018524276c0c18e02b8bcabda44548404269ee9",
+    "MissionControl/Assistant/Provider/ChatGPTStream.swift": "3803c036df480f0b8c445a92795fbbf9eeb1516672e8ad73e894b8dafd3964d2",
+    "MissionControl/Assistant/Provider/InferenceDeadline.swift": "7a02b022a882c497fc0f321c9e37062f1e41b7401812188830c80c61fe0f9a59",
+    "MissionControl/Assistant/Provider/PAInferenceConnection.swift": "b1bc186c09a0bc6ab8b673f0b6ea1d19596e6d72e1c44b288a425a1116f1a464",
+    "MissionControl/Infrastructure/Usage/AIUsage.swift": "e1b07902350216a7ff658b8d754cbc15a4c459f0db783b6b45a3970917df85c7"
+  },
+  "adaptations": [
+    "App-derived name, Keychain identity and prompt cache namespace",
+    "No fixed default model; owner chooses from the offered account catalogue",
+    "Removed integrated usage-store/UI and developer profiling dependencies",
+    "Preserved OAuth, stream completion, usage-error handling and deadline boundaries",
+    "New minimal foundation UI, account workspace storage and on-demand brief; no native sources, tools or scheduling"
+  ]
+}

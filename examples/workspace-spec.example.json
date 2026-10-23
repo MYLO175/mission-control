@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "exampleOnly": true,
+  "appName": "Atlas",
+  "bundleID": "generated-by-create-app",
+  "appearance": {"theme": "sage", "customizations": []},
+  "foundation": {"chat": true, "dailyBrief": true},
+  "selectedFeatures": ["projects"],
+  "deferredFeatures": ["calendar", "reminders", "review", "heartbeat", "context", "mail", "whatsapp", "weather", "integrations", "widgets"],
+  "sourceAccounts": [],
+  "actions": {"nativeWrites": "none initially", "projectWrites": "on explicit request"},
+  "background": {"enabled": false},
+  "assumptions": ["Use the supplied default design"],
+  "openQuestions": []
+}

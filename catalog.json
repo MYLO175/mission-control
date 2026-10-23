@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 1,
+  "name": "Mission Control",
+  "defaultTheme": "sage",
+  "features": [
+    {
+      "id": "calendar",
+      "title": "Calendar",
+      "summary": "See your day without hopping between windows.",
+      "category": "Plan your day",
+      "status": "Reference code available",
+      "effort": "medium",
+      "image": "docs/assets/features/calendar.png",
+      "recipe": "features/calendar/README.md",
+      "requires": [
+        "foundation"
+      ],
+      "sourcePrefixes": [
+        "MissionControl/Sources/Native/",
+        "MissionControl/Widgets/Calendar/",
+        "MissionControl/Infrastructure/Actions/"
+      ],
+      "sourceFiles": [
+        "MissionControl/Sources/Native/EventKitService.swift",
+        "MissionControl/Sources/Native/NativeSourceRead.swift",
+        "MissionControl/Widgets/Calendar/CalendarWidgetView.swift",
+        "MissionControl/Infrastructure/Actions/NativeActionRuntime.swift",
+        "Tests/Widgets/Calendar/CalendarTimelineChecks.swift"
+      ],
+      "why": "Useful if appointments shape your day. Start with a read-only agenda or week view. Editing and dragging are separate choices.",
+      "steps": [
+        "Choose agenda or week layout and the calendars to display. Begin with read access; ask separately about creating or moving events.",
+        "Adapt EventKit reads and the timeline into an independent Calendar service. Add the selected access-purpose description and stable app signing. Request access only when the owner connects Calendar.",
+        "Distinguish unavailable access from a genuinely empty day. Preserve timezones, all-day dates and recurrence occurrences.",
+        "If writes are selected, adapt exact target/revision checks, persistent operation receipts and fresh readback. Never write by matching a title."
+      ],
+      "acceptance": [
+        "Denied access shows an unavailable state without inventing an empty day.",
+        "All-day and timed events render correctly across timezone and daylight-saving boundaries.",
+        "If editing is selected, a disposable approved event moves once and readback confirms its exact values; interrupted saves are not replayed."
+      ],
+      "permissions": "Calendar permission for the selected capability. No Reminders or Mail permission is implied."
+    },
+    {
+      "id": "reminders",
+      "title": "Apple Reminders",
+      "summary": "Bring your existing to-dos into your space.",
+      "category": "Plan your day",
+      "status": "Reference code available",
+      "effort": "medium",
+      "image": "docs/assets/features/reminders.png",
+      "recipe": "features/reminders/README.md",
+      "requires": [
+        "foundation"
+      ],
+      "sourcePrefixes": [
+        "MissionControl/Sources/Native/",
+        "MissionControl/Infrastructure/Actions/"
+      ],
+      "sourceFiles": [
+        "MissionControl/Sources/Native/EventKitService.swift",
+        "MissionControl/Sources/Native/EventKitTools.swift",
+        "MissionControl/Infrastructure/Actions/NativeEditing.swift",
+        "MissionControl/Infrastructure/Actions/NativeCreationStore.swift"
+      ],
+      "why": "Useful if Apple Reminders already holds your personal tasks. These are native reminders; Project tasks are a different, optional kind of record.",
+      "steps": [
+        "Choose lists and whether the first version can only read, or can also create/complete reminders on explicit requests.",
+        "Adapt the reminder service into its own selected source. Add its usage description and permission request at connection time.",
+        "Retain list IDs, date-only versus timed due dates, completion state and recurrence semantics. Do not convert date-only reminders into midnight appointments.",
+        "For selected writes, issue exact current identities, validate captured fields, save a pending receipt and verify by readback. Expose supported Undo honestly."
+      ],
+      "acceptance": [
+        "Permission denial and an empty list remain distinct.",
+        "Completing an approved fictional/disposable reminder changes only that exact record.",
+        "Date-only and recurring reminders survive reopen with the same intended date and scope."
+      ],
+      "permissions": "Reminders permission. Calendar and Projects are not required."
+    },
+    {
+      "id": "projects",
+      "title": "Projects & notes",
+      "summary": "Give longer work a home, with tasks and notes together.",
+      "category": "Organize work",
+      "status": "Reference code available",
+      "effort": "medium",
+      "image": "docs/assets/features/projects.png",
+      "recipe": "features/projects/README.md",
+      "requires": [
+        "foundation"
+      ],
+      "sourcePrefixes": [
+        "MissionControl/Projects/",
+        "MissionControl/Memory/Context/"
+      ],
+      "sourceFiles": [
+        "MissionControl/Projects/LifeWorkspace.swift",
+        "MissionControl/Projects/LifeWorkspaceStore.swift",
+        "MissionControl/Projects/LifeProjectWidget.swift",
+        "MissionControl/Projects/LifeProjectNotes.swift",
+        "MissionControl/Projects/LifeWorkspaceTools.swift",
+        "Tests/Projects/LifeWorkspaceChecks.swift"
+      ],
+      "why": "Useful for work that spans days or weeks: a project, a side business, an application or a creative idea. It works without Apple accounts.",
+      "steps": [
+        "Start with local spaces, tasks and notes. Choose a simple list, board or both. Use the foundation account/storage identity.",
+        "Adapt the workspace model and persistence before mounting views. Keep IDs and hierarchy stable; separate Project tasks from Apple Reminders.",
+        "Expose only selected project tools to the assistant. The human owns project creation and changes; mentioning an idea in chat does not automatically create a project.",
+        "Add reversible local edits and exact parent/revision checks. Preserve folder defaults, ordering and recently deleted identities."
+      ],
+      "acceptance": [
+        "A space, child task and note reopen under the same account and identities.",
+        "A second account cannot see or mutate the first account's project records.",
+        "Moving a task, undoing and restoring a deleted item preserve its intended parent and ID."
+      ],
+      "permissions": "Local app storage only. No Calendar, Reminders or external account is required."
+    },
+    {
+      "id": "review",
+      "title": "Review inbox",
+      "summary": "Consider useful suggestions and choose what happens next.",
+      "category": "Organize work",
+      "status": "Reference code available",
+      "effort": "advanced",
+      "image": "docs/assets/features/review.png",
+      "recipe": "features/review/README.md",
+      "requires": [
+        "foundation"
+      ],
+      "sourcePrefixes": [
+        "MissionControl/Review/",
+        "MissionControl/Infrastructure/Actions/"
+      ],
+      "sourceFiles": [
+        "MissionControl/Review/Inbox/PreparedReview.swift",
+        "MissionControl/Review/Inbox/ProactiveService.swift",
+        "MissionControl/Review/Actions/ReviewWork.swift",
+        "MissionControl/Review/Actions/ReviewPlanDashboardAdapter.swift",
+        "MissionControl/Infrastructure/Actions/ActionReceiptStore.swift"
+      ],
+      "why": "Useful if you want an assistant to prepare possible next steps for you to inspect. A saved suggestion can have a conversation, a checkbox plan and a clear result.",
+      "steps": [
+        "Choose the kinds of suggestions to prepare and their actual sources. Manual generation is a valid first version; heartbeat is optional.",
+        "Create a persistent inbox with exact proposal identities, action payloads, selection state and outcomes. Reading saved cards must not start AI work.",
+        "Separate proposal creation from approving displayed concrete actions. Apply only the selected exact actions under the current source/account and destination permissions.",
+        "Adapt canonical receipts, duplicate grouping, never-started job recovery and outcome display. Uncertain or interrupted writes require outcome checking rather than blind replay."
+      ],
+      "acceptance": [
+        "Opening the inbox displays saved cards with zero inference requests.",
+        "Approving a selected concrete action executes it once and shows a verified result.",
+        "Dismiss/Undo, reopen and duplicate proposals retain their expected state; an uncertain save cannot be replayed automatically."
+      ],
+      "permissions": "Depends on the chosen suggestion source and action destination. Email, Projects and heartbeat are possible companions, not mandatory bundles."
+    },
+    {
+      "id": "heartbeat",
+      "title": "Heartbeat",
+      "summary": "Let your space check in at times you choose.",
+      "category": "Organize work",
+      "status": "Reference code available",
+      "effort": "advanced",
+      "image": "docs/assets/features/heartbeat.png",
+      "recipe": "features/heartbeat/README.md",
+      "requires": [
+        "foundation"
+      ],
+      "sourcePrefixes": [
+        "MissionControl/Background/Heartbeat/",
+        "MissionControl/Infrastructure/Usage/"
+      ],
+      "sourceFiles": [
+        "MissionControl/Background/Heartbeat/Heartbeat.swift",
+        "MissionControl/Background/Heartbeat/HeartbeatRuntime.swift",
+        "MissionControl/Background/Heartbeat/HeartbeatPower.swift",
+        "MissionControl/Background/Heartbeat/HeartbeatService.swift"
+      ],
+      "why": "Useful when you want recurring briefs or suggestions. It performs selected AI work over available inputs; it does not mean every source is connected.",
+      "steps": [
+        "Agree the actual jobs, interval, notification style and usage expectations. Leave automatic work off until the owner chooses it.",
+        "Start with one selected job, such as updating a brief. Adapt durable due-time/run state and the power gate without importing every 3PO learning/review lane.",
+        "Keep source collection separate. A heartbeat consumes permitted collected snapshots; a source refresh alone makes no AI request.",
+        "Retain serial ownership, Stop, usage pause, sleep/closed-lid/dark-wake checks and one catch-up after full wake. Avoid replaying every missed interval or retrying failed personal actions."
+      ],
+      "acceptance": [
+        "A fictional clock produces one due run and no run while disabled or already busy.",
+        "Sleep interruption preserves due state; full wake catches up once without a retry storm.",
+        "A failed selected lane preserves completed outcomes and schedules a fresh future cycle.",
+        "Perform a real sleep/wake acceptance check separately before claiming ordinary-use reliability."
+      ],
+      "permissions": "Recurring model usage, explicitly enabled by the owner. Only the selected jobs and sources are started."
+    },
+    {
+      "id": "context",
+      "title": "Context & memory",
+      "summary": "Keep useful background available without repeating yourself.",
+      "category": "Organize work",
+      "status": "Reference code available",
+      "effort": "advanced",
+      "image": "docs/assets/features/context.png",
+      "recipe": "features/context/README.md",
+      "requires": [
+        "foundation"
+      ],
+      "sourcePrefixes": [
+        "MissionControl/Memory/",
+        "MissionControl/Assistant/Conversation/"
+      ],
+      "sourceFiles": [
+        "MissionControl/Memory/Context/ContextPages.swift",
+        "MissionControl/Memory/Context/ContextPageStore.swift",
+        "MissionControl/Memory/Context/ContextConsolidationRules.swift",
+        "MissionControl/Memory/Views/ContextPagesView.swift",
+        "Tests/Memory/ContextPageChecks.swift"
+      ],
+      "why": "Useful for background you want the assistant to retain: ongoing work, your preferred routines or the meaning of a project. It is distinct from chat history.",
+      "steps": [
+        "Choose explicit human-owned notes first or AI-maintained context pages. Automatic learning and periodic consolidation are separate opt-ins.",
+        "Use the current page-first 3PO implementation. Ordinary chat receives a small guide and relevant pages/working changes; avoid reviving the older parallel raw-fact feed.",
+        "Preserve canonical evidence, corrections/history, source/account ownership and exact identity. Feature instructions remain distinct from factual background.",
+        "Add inspect, edit, correct and forget controls. If sources or Projects are selected, use their exact access/identity contracts rather than silently importing all data."
+      ],
+      "acceptance": [
+        "The owner can inspect what was supplied to a reply and correct or forget a specific piece of background.",
+        "Another account and unpermitted source evidence cannot enter recall.",
+        "No page learning runs merely because its view opens; selected consolidation is separately controlled.",
+        "Verify relevant context is used without automatically injecting all stored facts."
+      ],
+      "permissions": "Local records and selected model context. Learning from conversations or external sources requires its own chosen controls."
+    },
+    {
+      "id": "mail",
+      "title": "Read-only Mail",
+      "summary": "Bring relevant messages into view, with drafts you control.",
+      "category": "Connect sources",
+      "status": "Reference code available",
+      "effort": "advanced",
+      "image": "docs/assets/features/mail.png",
+      "recipe": "features/mail/README.md",
+      "requires": [
+        "foundation"
+      ],
+      "sourcePrefixes": [
+        "MissionControl/Sources/Mail/",
+        "MissionControl/Sources/Email/",
+        "MissionControl/Review/Feedback/"
+      ],
+      "sourceFiles": [
+        "MissionControl/Sources/Mail/MailService.swift",
+        "MissionControl/Sources/Mail/MailReader.js",
+        "MissionControl/Sources/Mail/MailLookup.swift",
+        "MissionControl/Sources/Email/EmailSummaryService.swift",
+        "MissionControl/Review/Feedback/ReviewFeedbackService.swift"
+      ],
+      "why": "Useful if incoming messages influence your work. Start with selected accounts and read-only lookup. Assessment, drafts and Review are additional choices.",
+      "steps": [
+        "Choose Apple Mail accounts and whether the app may show headers, read bodies or send selected content to inference for the chosen purpose.",
+        "Adapt read-only collection and bounded lookup. Request Mail Automation only when connecting. Keep collection and model interpretation separate.",
+        "Use incremental per-account identity/cursor coverage and backoff; a body-read failure must not stop every account or imply there is no mail.",
+        "If drafts are selected, keep them local for review/edit/copy. Do not add sending, mark-read or other Mail writes. Add Review or heartbeat only if the owner chooses those features."
+      ],
+      "acceptance": [
+        "Collection makes no inference requests and preserves Mail read/unread state.",
+        "Unavailable accounts are labelled unavailable; partial history is not presented as complete.",
+        "A selected lookup respects account boundaries, stops promptly and never sends a reply.",
+        "Draft text stays local until the person copies or separately handles it."
+      ],
+      "permissions": "Apple Mail Automation and selected account/purpose controls. Mail is read-only in the reference implementation."
+    },
+    {
+      "id": "whatsapp",
+      "title": "Read-only WhatsApp",
+      "summary": "Include selected conversations in your own workspace.",
+      "category": "Connect sources",
+      "status": "Reference code available",
+      "effort": "advanced",
+      "image": "docs/assets/features/whatsapp.png",
+      "recipe": "features/whatsapp/README.md",
+      "requires": [
+        "foundation"
+      ],
+      "sourcePrefixes": [
+        "MissionControl/Sources/WhatsApp/",
+        "WhatsAppBridge/",
+        "scripts/packaging/"
+      ],
+      "sourceFiles": [
+        "MissionControl/Sources/WhatsApp/WhatsAppService.swift",
+        "MissionControl/Sources/WhatsApp/WhatsAppSourcePicker.swift",
+        "WhatsAppBridge/reader.mjs",
+        "WhatsAppBridge/policy.mjs",
+        "scripts/packaging/package-whatsapp-runtime.py"
+      ],
+      "why": "Useful if selected personal conversations provide relevant context. This optional connector uses an unofficial linked-device helper and can break or face restrictions.",
+      "steps": [
+        "Explain the linked-device approach and confirm the owner wants it. Let them scan their own QR code and choose chats; never reuse another app's session.",
+        "Adapt the separate helper package, pinned runtime packaging and encrypted session/message/name storage. Give the new app its own helper/storage/Keychain identities.",
+        "Keep chat selection and AI-purpose permissions explicit. Reception may cache unselected text; explain this distinction instead of promising selection limits reception.",
+        "Keep the helper read-only: no sending, presence changes or read-receipt commands. Stop it when disconnected; do not silently relink or expand chats."
+      ],
+      "acceptance": [
+        "The owner completes linking and the selected chat list matches their choice.",
+        "Fictional helper tests reject write/read-receipt/presence commands.",
+        "Account changes and disconnection invalidate old source access; local sessions stay separate from 3PO.",
+        "Missing or partial history is labelled honestly."
+      ],
+      "permissions": "Optional unofficial Baileys helper, Node/npm during preparation and human QR consent. No other source is required."
+    },
+    {
+      "id": "weather",
+      "title": "Weather",
+      "summary": "A little local context for planning the day.",
+      "category": "Connect sources",
+      "status": "Reference code available",
+      "effort": "small",
+      "image": "docs/assets/features/weather.png",
+      "recipe": "features/weather/README.md",
+      "requires": [
+        "foundation"
+      ],
+      "sourcePrefixes": [
+        "MissionControl/Sources/Weather/"
+      ],
+      "sourceFiles": [
+        "MissionControl/Sources/Weather/WeatherService.swift",
+        "MissionControl/Sources/Weather/WeatherWidgetView.swift",
+        "MissionControl/Sources/Weather/Weather.swift"
+      ],
+      "why": "Useful if travel, a walk or outdoor plans change with the forecast. Add it as a small standalone view or as optional brief context.",
+      "steps": [
+        "Let the owner choose a manual location or optional location permission. Do not infer an address from unrelated personal records.",
+        "Adapt the weather service and cache with its own explicit refresh. Weather refresh need not invoke the assistant.",
+        "Show location, forecast date/time and cached/stale state. Include weather in briefs only when current data is actually supplied."
+      ],
+      "acceptance": [
+        "A fixture forecast renders dates, units and location correctly.",
+        "Unavailable or stale weather is labelled and never fabricated by the model.",
+        "Refreshing weather triggers no AI request."
+      ],
+      "permissions": "Network forecast access; location permission only if selected. Check the current forecast provider terms and attribution before distribution."
+    },
+    {
+      "id": "integrations",
+      "title": "MCP & other integrations",
+      "summary": "Connect another useful tool when you have a reason to.",
+      "category": "Connect sources",
+      "status": "Guide; new adapter required",
+      "effort": "advanced",
+      "image": "docs/assets/features/integrations.png",
+      "recipe": "features/integrations/README.md",
+      "requires": [
+        "foundation"
+      ],
+      "sourcePrefixes": [
+        "MissionControl/Assistant/Tools/",
+        "MissionControl/Infrastructure/Actions/"
+      ],
+      "sourceFiles": [
+        "MissionControl/Assistant/Tools/PAToolProtocol.swift",
+        "MissionControl/Assistant/Tools/PAToolSession.swift",
+        "MissionControl/Assistant/Tools/PAToolAuthorization.swift"
+      ],
+      "why": "Useful when your chosen workflow needs a service beyond the supplied examples. Start with the actual task, then decide whether native code, a direct API or MCP is appropriate.",
+      "steps": [
+        "Identify the service, intended read/write operations, supported authentication and where its connector will run.",
+        "Distinguish the coding assistant's tools from the finished app's runtime. A plugin installed in Claude/Codex does not install it into a new app.",
+        "Implement a local client/adapter for the chosen service. The 3PO tool protocol/session illustrates typed execution boundaries, not a complete generic MCP client.",
+        "Expose only selected tools, validate schemas/owners/capabilities and keep secrets in an appropriate credential store. For writes, add exact authority, durable receipts and saved-outcome verification.",
+        "Check current service and MCP documentation, and the ChatGPT subscription route's supported tools. Do not assume provider-hosted connectors are available."
+      ],
+      "acceptance": [
+        "Only selected tools appear in the app's actual runtime tool list.",
+        "Revoked/expired authorization and unavailable services produce clear bounded failures.",
+        "Read-only tools cannot dispatch writes. Approved writes are verified and uncertain results are not replayed.",
+        "The app works when the developer's coding assistant is closed."
+      ],
+      "permissions": "Depends on the chosen service. This recipe is guidance for new integration work, not a prebuilt MCP module."
+    },
+    {
+      "id": "widgets",
+      "title": "Your dashboard",
+      "summary": "Arrange the information you want to see.",
+      "category": "Personalize",
+      "status": "Reference code available",
+      "effort": "medium",
+      "image": "docs/assets/features/widgets.png",
+      "recipe": "features/widgets/README.md",
+      "requires": [
+        "foundation"
+      ],
+      "sourcePrefixes": [
+        "MissionControl/Dashboard/",
+        "MissionControl/Widgets/"
+      ],
+      "sourceFiles": [
+        "MissionControl/Dashboard/WorkspaceModels.swift",
+        "MissionControl/Dashboard/WorkspaceStore.swift",
+        "MissionControl/Dashboard/WorkspaceView.swift",
+        "MissionControl/Dashboard/WorkspaceColors.swift"
+      ],
+      "why": "Useful when several selected features deserve their own panels. Start with a fixed tidy layout, then add movable/resizable widgets or multiple pages if wanted.",
+      "steps": [
+        "Ask which selected features should be visible together. Retain default spacing, typography and colours unless the owner asks for another style.",
+        "Adapt saved pages/widget identities and layout geometry independently from source services. Adding a panel must not implicitly connect its source.",
+        "Mount only selected widget kinds. Preserve layout state across edits, resize and reopening; an absent feature must not start a hidden service.",
+        "Support keyboard navigation, readable contrast and light/dark appearance. Choose whether saved themes and drag editing are needed in the first version."
+      ],
+      "acceptance": [
+        "Reordering/resizing and reopening retain the layout and stable IDs.",
+        "Showing, hiding and editing a widget do not change source permissions or create AI requests.",
+        "Narrow windows, long titles and light/dark modes remain usable."
+      ],
+      "permissions": "Local appearance/layout storage. Individual widgets use only the permissions of their selected feature."
+    }
+  ],
+  "previewDisclosure": "Illustrative preview with fictional content. Layouts vary; optional features need integration."
+}

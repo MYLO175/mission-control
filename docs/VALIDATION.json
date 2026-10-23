@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-23T17:14:34.718529+00:00",
+  "sourceCommit": "050bd308a022d70575ae16d04d62bcecee8d7477",
+  "environment": {
+    "macOS": "27.0.1",
+    "architecture": "arm64",
+    "xcode": "Xcode 27.1\nBuild version 27A9275"
+  },
+  "checks": {
+    "guideCatalogueReferenceAndGenerator": {
+      "status": "passed",
+      "optionalFeatures": 11,
+      "referenceFiles": 422,
+      "localAuthoredLinks": 154,
+      "uniqueIdentities": true,
+      "refusesExistingOrRecursiveDestination": true,
+      "unicodeNamePreserved": true
+    },
+    "offlineSwift": {
+      "status": "passed",
+      "suites": [
+        "OAuth PKCE/callback/RSA signature/claim rejection",
+        "SSE framing/completion/failure/recovery",
+        "Account-separated workspace/context bounds/corrupt-data preservation/preview isolation"
+      ]
+    },
+    "nativeFoundation": {
+      "status": "passed",
+      "compiled": true,
+      "adHocSignatureVerified": true,
+      "fictionalRender": true
+    },
+    "independentGeneratedApp": {
+      "status": "passed",
+      "customUnicodeName": true,
+      "compiled": true,
+      "fictionalRender": true
+    },
+    "visualChooser": {
+      "status": "passed",
+      "desktopViewport": [
+        1400,
+        1000
+      ],
+      "mobileViewport": [
+        390,
+        900
+      ],
+      "horizontalOverflowOnMobile": false,
+      "all11PreviewsVisuallyReviewed": true,
+      "featureSelectionAndPrompt": true,
+      "selectionSurvivesFilters": true,
+      "enlargedPreviewAndEscape": true,
+      "brokenAssignedImages": 0,
+      "consoleErrors": 0
+    }
+  },
+  "notExercised": [
+    "Live ChatGPT sign-in or subscription inference for a new owner",
+    "Optional-feature integration into a generated app",
+    "Real Calendar/Reminders/Mail/WhatsApp access or changes",
+    "Sustained background operation"
+  ],
+  "media": "Foundation image renders actual SwiftUI with fictional data. Optional feature PNGs are labelled illustrative previews authored for the catalogue."
+}
